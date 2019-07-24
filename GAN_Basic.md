@@ -15,7 +15,7 @@ https://www.youtube.com/watch?v=HGYYEUSm-0Q <br/>
 GAN은 2014년 처음 나왔을 때도 관심을 모았었지만, 이는 시작에 불과했습니다. <br/>
 NIPS 2016에서 Ian Goodfellow님이 GAN tutorial 발표를 하고, 반응은 폭발적이였습니다. <br/>
 거기에 제 CNN 문서에서 나왔던 Yann LeCun 박사도 이에 10~20 년 사이의 머신러닝 연구 중에서 <br/>
-최고의 아이디어라며 찬사를 보냈고, 이에 많은 사람들이 GAN에 대해 공부하고 이를 응용하고 발전시켰습니다. <br/>
+최고의 아이디어라며 찬사를 보냈고, 이에 많은 이들이 GAN을 공부하고 응용하고 발전시켰습니다. <br/>
 
 Ian Goodfellow님은 그 외에도 Deeplearning의 대가 중 한 분인 Yoshua Bengio와 <br/>
 Aaron Courville과 함께 아래 사진의 DEEP LEARNING 책을 썼습니다. <br/>
