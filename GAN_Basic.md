@@ -1,14 +1,54 @@
-# GANs(Generative Adversarial Networks)
+# GAN(Generative Adversarial Network)
 
-GANs는 2014년, ‘Generative Adversarial Nets’이라는 논문으로 세상에 나오게 되었습니다. <br/>
-(여담으로 논문을 쓰신 Ian Goodfellow님은 아래 DEEP LEARNING 책을 쓰신 분이기도 합니다.) <br/>
+아래 사진은 2014년에 Ian Goodfellow님이 쓴 ‘Generative Adversarial Nets’라는 논문입니다. <br/>
+GAN(Generative Adversarial Network)은 이 논문을 통해 세상 밖으로 나오게 되었습니다. <br/>
+이 문서에서도 GAN의 기초를 다루기 때문에, 이 논문을 중심으로 설명을 하게 될 것 같습니다.<br/>
 
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Generative%20Adversarial%20Nets(2014).png" alt="Generative Adversarial Nets(2014)" width="300" height="400">
+
+## Ian Goodfellow
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/lan%20Goodfellow.png" alt="lan Goodfellow" width="300" height="300">
+
+https://www.youtube.com/watch?v=HGYYEUSm-0Q <br/>
+GAN은 2014년 처음 나왔을 때도 관심을 모았었지만, 이는 시작에 불과했습니다. <br/>
+NIPS 2016에서 Ian Goodfellow님이 GAN tutorial 발표를 하고, 반응은 폭발적이였습니다. <br/>
+거기에 제 CNN 문서에서 나왔던 Yann LeCun 박사도 이에 10~20 년 사이의 머신러닝 연구 중에서 <br/>
+최고의 아이디어라며 찬사를 보냈고, 이에 많은 사람들이 GAN에 대해 공부하고 이를 응용하고 발전시켰습니다. <br/>
+
+Ian Goodfellow님은 그 외에도 Deeplearning의 대가 중 한 분인 Yoshua Bengio와 <br/>
+Aaron Courville과 함께 아래 사진의 DEEP LEARNING 책을 썼습니다. <br/>
 ![DEEP LEARNING_book](https://github.com/hwk06023/GAN/blob/master/Images/DEEP%20LEARNING_book.png)
 
 <br/>
 
-다시 본론으로 돌아가 GAN(Generative Adversarial Network)은 비지도 학습의 대표적인 모델로, <br/>
-최근까지 GAN을 활용한 굉장히 다양한 모델들이 나오고 있습니다. 이러한 GAN에 대해 자세히 알아봅시다 !! <br/><br/>
+Ian Goodfellow님은 GAN의 방식을 설명할 때, 경찰과 위조지폐범으로 비유를 합니다. <br/>
+이는 GAN의 특징을 이해하기 쉽고 재밌어서 많은 사람들이 GAN을 설명할 때 쓰는 비유로 자리매김합니다. <br/>
+
+<br/>
+
+먼저 위조지폐범은 실제 지폐와 똑같이 만들어서 경찰이 구별할 수 없게 하는 것이 목적이고, <br/>
+경찰은 위조지폐범이 만든 위조 지폐와 실제 지폐를 완벽하게 구별하는 것이 목표입니다. <br/>
+이를 정리하면 " __경찰의 구별하는 정확도를 위조 지폐범은 최소화, 경찰은 최대화 하는 것__ "이 목표가 됩니다.
+
+<br/>
+
+우리는 Dataset과 매우 유사한 패턴을 만드는 것이 목적이니, 위조지폐범과 목적이 같다고 할 수 있습니다! <br/>
+여기서 경찰은 진짜와 가짜의 구별을 완벽하게 한다는 가정이 있어야 합니다. 위조지폐범은 반복해서 구별당하며, <br/>
+점점 더 진짜 지폐 같은 위조 지폐를 만들어, 결국에는 경찰이 진짜 지폐와 위조 지폐를 구별할 수 없게 합니다. <br/>
+구별할 수 없게 된다는 말은 곧 경찰에게 진짜와 가짜의 구별을 시켰을 때, 둘 중 하나를 아무거나 고르게 되는겁니다. <br/>
+이를 정리하면 __위조지폐범은 점점 경찰이 구별하는 정확도를 줄여서, 결국은 경찰이 구별할 확률을 50%로 만듭니다.__
+
+<br/>
+
+이를 통해 알 수 있는 내용인 경찰이 진짜와 가짜의 구별을 완벽히 한다는 가정(max)과 <br/>
+위조지폐범이 가짜와 진짜의 차이를 최소화(min)하는 과정을 수학적으로 Minmax Game이라고 합니다. <br/>
+
+#### 이제 정말 모델의 구조를 직접 보면서 이해를 해봅시다! <br/><br/>
+
+
+## Model
 
 ![GAN_Architecture](https://github.com/hwk06023/GAN/blob/master/Images/GAN_Architecture.png) <br/>
 
@@ -19,7 +59,10 @@ Random noise를 Input 으로 받아, Fake image를 Real image(Training set)와 �
 
 왜 대립하는 구조라고 부르는 것일까요? 왜냐하면 Discriminator는 Generator가 만든 <br/>
 Fake image와 Real image를 더 잘 구별해야 하고, Generator는 점차 Fake image를 <br/>
-Real image에 가깝게 만들어 Discriminator가 구별하기 힘들게 해야하기 때문입니다. <br/><br/>
+Real image에 가깝게 만들어 Discriminator가 구별하기 힘들게 해야하기 때문입니다. <br/>
+위의 비유에 대입해보면, 위조지폐범은 Generator, 경찰은 Discriminator입니다. <br/>
+
+<br/>
 
 ![objective_funtion](https://github.com/hwk06023/GAN/blob/master/Images/objective_funtion.png) <br/>
 
@@ -51,8 +94,21 @@ Real image에 가깝게 만들어 Discriminator가 구별하기 힘들게 해야
 Random noise를 Input 받아 Generator가 생성해낸 Fake image입니다. <br/><br/>
 
 ![D(G(z))](https://github.com/hwk06023/GAN/blob/master/Images/D(G(z)).png) <br/>
-Generator는 최대한 Discriminator가 Fake image를 받았을 때, 최대한 1에 가까운 값을 내놓도록 학습합니다. <br/><br/>
+Generator는 최대한 Discriminator가 Fake image를 받았을 때, 최대한 1에 가까운 값을 내놓도록 학습합니다. <br/><br/><br/>
 
+![Graph](https://github.com/hwk06023/GAN/blob/master/Images/Graph.png) <br/>
+검은 점선 : Data generating distribution, 파란 점선 : Discriminator distribution <br/>
+녹색 선: Generative distribution, 위로 뻗은 화살표 : x = G(z)의 mapping <br/>
+
+(a), (b), (c), (d)는 학습을 반복하면서 점점 진행되는 순서 입니다. <br/>
+녹색 선(생성자의 확률분포)과 검은 점선(데이터의 확률분포)이 가까워지며, <br/>
+파란 점선(구별자)이 0.5인 상태(D(x) = 0.5[구별 불가])가 됩니다. <br/>
+
+#### 정상적으로 학습이 이루어졌을 때의 모습입니다.
+
+## GAN의 문제점
+
+그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다.
 
 
 
