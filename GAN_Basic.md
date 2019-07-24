@@ -2,10 +2,10 @@
 
 아래 사진은 2014년에 Ian Goodfellow님이 쓴 ‘Generative Adversarial Nets’라는 논문입니다. <br/>
 GAN(Generative Adversarial Network)은 이 논문을 통해 세상 밖으로 나오게 되었습니다. <br/>
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Generative%20Adversarial%20Nets(2014).png" alt="Generative Adversarial Nets(2014)" width="300" height="400"> <br/>
+
 이 문서에서도 GAN의 기초를 다루기 때문에, 이 논문을 중심으로 설명을 하게 될 것 같습니다.<br/>
-
-
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Generative%20Adversarial%20Nets(2014).png" alt="Generative Adversarial Nets(2014)" width="300" height="400">
 
 ## Ian Goodfellow
 
@@ -114,19 +114,38 @@ Generator는 최대한 Discriminator가 Fake image를 받았을 때, 최대한 1
 
 ## GAN의 문제점
 
-그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다. <br/>
+그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다. <br/><br/>
+
+처음에 GAN을 경찰과 위조지폐범 관계로 비유했을 때 Minmax Game이라고 했습니다. <br/>
+경찰이 진짜와 가짜의 구별을 완벽히 한다는 가정(max)에서 <br/>
+위조지폐범이 가짜와 진짜의 차이를 최소화(min)하기 때문이였는데요. <br/>
+
+실제로 GAN에서 Discriminator가 처음부터 완벽히 구별을 할 수 없기 때문에, <br/>
+Minmax Game이 될 수 없는 모순이 존재합니다. <br/>
+
+따라서 경찰이 구별을 제대로 못하면, 위조지폐범이 진짜 지폐와 정말 유사하게 만들지 않아도, <br/>
+경찰을 쉽게 속일 수 있게 되어, 위조 지폐는 결코 더 진짜 지폐와 유사해지지 못할 것입니다. <br/>
+
+즉 Dicsriminator은 처음부터 완벽할 수 없기 때문에, Generator과 같이 학습을 하더라도, <br/> 
+Generator가 Discriminator가 완벽치 않은 상태에 속이고 학습을 끝나면 성능을 기대하긴 힘들 것입니다. <br/>
 
 ### 모델의 진동(Oscillation)
 
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Oscillation.png" alt="Oscillation" width="300" height="300">
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Oscillation.png" alt="Oscillation" width="300" height="300"> <br/>
 Generator와 Discriminator 두 네트워크 모두 단순히 계속 loss만 줄이려고 하기 때문에, <br/>
 오래 학습해도 더 이상 원하는 지점으로 수렴하지 않는 현상을 모델이 진동(Oscillation)한다고 합니다. <br/>
 
 ### Mode Collapsing
 
+Mode Collapsing의 설명을 돕기 위해 MNIST로 예를 들어 보았습니다. <br/>
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Trainingset_mnist.png" alt="Trainingset" width="320" height="280">
+
+다음과 같이 Training set이 존재할 때, 
+
 <img src="https://github.com/hwk06023/GAN/blob/master/Images/Mode%20Collapsing.png" alt="Mode Collapsing" width="300" height="300">
 
-
-
+<img src="https://3.bp.blogspot.com/-Y88Bj3R0bl0/WZkIJG3_DRI/AAAAAAAAAJs/Bo33QoRrIZcv3y2aSNctqsjUCmBiSjWagCEwYBhgL/s1600/15.png" width="500" height="300">
+이렇게 같은 숫자만 반복해서 생성하게 됩니다.
 
 
