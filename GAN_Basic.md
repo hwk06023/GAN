@@ -34,6 +34,12 @@ Ian Goodfellow님은 GAN의 방식을 설명할 때, 경찰과 위조지폐범�
 
 <br/>
 
+<div style="float:left;">
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/police.png" alt="police" width="180" height="180"><img src="https://github.com/hwk06023/GAN/blob/master/Images/burglar.png" alt="burglar" width="180" height="180">
+<div/>
+
+<br/>
+
 우리는 Dataset과 매우 유사한 패턴을 만드는 것이 목적이니, 위조지폐범과 목적이 같다고 할 수 있습니다! <br/>
 여기서 경찰은 진짜와 가짜의 구별을 완벽하게 한다는 가정이 있어야 합니다. 위조지폐범은 반복해서 구별당하며, <br/>
 점점 더 진짜 지폐 같은 위조 지폐를 만들어, 결국에는 경찰이 진짜 지폐와 위조 지폐를 구별할 수 없게 합니다. <br/>
@@ -75,7 +81,7 @@ Real image에 가깝게 만들어 Discriminator가 구별하기 힘들게 해야
 
 ### Discriminator : <br/>
 
-![Discriminator_funtion](https://github.com/hwk06023/GAN/blob/master/Images/Discriminator_funtion.png) <br/>
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Discriminator_funtion.png" alt="Discriminator_funtion" width="600" height="270"> <br/>
 
 ### Generator : <br/>
 
@@ -108,7 +114,19 @@ Generator는 최대한 Discriminator가 Fake image를 받았을 때, 최대한 1
 
 ## GAN의 문제점
 
-그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다.
+그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다. <br/>
+
+### 모델의 진동(Oscillation)
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Oscillation.png" alt="Oscillation" width="300" height="300">
+Generator와 Discriminator 두 네트워크 모두 단순히 계속 loss만 줄이려고 하기 때문에, <br/>
+오래 학습해도 더 이상 원하는 지점으로 수렴하지 않는 현상을 모델이 진동(Oscillation)한다고 합니다. <br/>
+
+### Mode Collapsing
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Mode%20Collapsing.png" alt="Mode Collapsing" width="300" height="300">
+
+
 
 
 
