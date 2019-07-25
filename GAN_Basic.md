@@ -137,15 +137,22 @@ Generator와 Discriminator 두 네트워크 모두 단순히 계속 loss만 줄�
 
 ### Mode Collapsing
 
-Mode Collapsing의 설명을 돕기 위해 MNIST로 예를 들어 보았습니다. <br/>
+Mode Collapsing에서의 Mode는 통계학에서의 의미로 최빈값을 의미합니다. <br/>
+정상적으로 학습이 진행된다면 학습 데이터의 분포가 다양할 경우 다양한 분포로 학습이 잘 되야하지만 <br/>
+Mode Collapsing의 설명을 돕기 위해 MNIST로 예를 들어 보겠습니다. <br/>
 
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Trainingset_mnist.png" alt="Trainingset" width="320" height="280">
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Trainingset_mnist.png" alt="Trainingset" width="300" height="270">
 
-다음과 같이 Training set이 존재할 때, 
+먼저 Training Set(MNIST)의 확률 분포가 다음과 같다고 가정해보겠습니다.
 
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Mode%20Collapsing.png" alt="Mode Collapsing" width="300" height="300">
-
-<img src="https://3.bp.blogspot.com/-Y88Bj3R0bl0/WZkIJG3_DRI/AAAAAAAAAJs/Bo33QoRrIZcv3y2aSNctqsjUCmBiSjWagCEwYBhgL/s1600/15.png" width="500" height="300">
-이렇게 같은 숫자만 반복해서 생성하게 됩니다.
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Modecollapse_mnist.png" width="700" height="300"> <br/>
+처음 Generator의 Randomnoise가 다음과 같이
 
 
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/ModecollapsinginMNIST.png" width="150" height="150"> </br>
+다양한 숫자를 학습해서 생성해내지 못하고, 같은 숫자만 반복해서 생성하게 됩니다.
+
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Mode%20Collapsing.png" alt="Mode Collapsing" width="300" height="300"> <br/>
+
+
+모델이 분포된 전체 데이터들을 골고루 학습하게 도와줍니다.
