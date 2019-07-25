@@ -114,7 +114,7 @@ Generator는 최대한 Discriminator가 Fake image를 받았을 때, 최대한 1
 
 ## GAN의 문제점
 
-그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다. <br/><br/>
+그럼 이제 GAN이 태생적으로 갖는 문제점들을 알려드리도록 하겠습니다. <br/>
 
 처음에 GAN을 경찰과 위조지폐범 관계로 비유했을 때 Minmax Game이라고 했습니다. <br/>
 경찰이 진짜와 가짜의 구별을 완벽히 한다는 가정(max)에서 <br/>
@@ -137,22 +137,32 @@ Generator와 Discriminator 두 네트워크 모두 단순히 계속 loss만 줄�
 
 ### Mode Collapsing
 
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Mode%20Collapsing.png" alt="Mode Collapsing" width="300" height="300"> <br/>
+학습 데이터의 분포가 다양할 때, 정상적으로 학습이 진행된다면 다양한 분포로 학습이 잘 되야하는데, <br/>
+Randomnoise가 다양하게 분포된 데이터들에게 골고루 분포되지 않았을 때 문제가 발생합니다.
 Mode Collapsing에서의 Mode는 통계학에서의 의미로 최빈값을 의미합니다. <br/>
-정상적으로 학습이 진행된다면 학습 데이터의 분포가 다양할 경우 다양한 분포로 학습이 잘 되야하지만 <br/>
+즉 Mode Collapsing은 다양하게 분포된 데이터 중 일부분에만 분포되어 학습하게 되는겁니다. <br/><br/>
+
 Mode Collapsing의 설명을 돕기 위해 MNIST로 예를 들어 보겠습니다. <br/>
+##### (MNIST는 0~9까지의 손 글씨 이미지 데이터입니다.) <br/>
 
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Trainingset_mnist.png" alt="Trainingset" width="300" height="270">
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Trainingset_mnist.png" alt="Trainingset" width="300" height="240"> <br/>
+먼저 Training Set(MNIST)의 확률 분포가 다음과 같다고 가정해보겠습니다.<br/>
 
-먼저 Training Set(MNIST)의 확률 분포가 다음과 같다고 가정해보겠습니다.
-
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Modecollapse_mnist.png" width="700" height="300"> <br/>
-처음 Generator의 Randomnoise가 다음과 같이
-
+<img src="https://github.com/hwk06023/GAN/blob/master/Images/Modecollapse_mnist.png" width="650" height="240"> <br/>
+처음 Generator가 학습할 Randomnoise가 다음과 같이 하나의 데이터에만 집중될 경우, <br/>
+이 데이터로 Generator는 Discriminator가 구별할 수 없는 상태가 되기까지 해당 데이터를 학습합니다. <br/>
 
 <img src="https://github.com/hwk06023/GAN/blob/master/Images/ModecollapsinginMNIST.png" width="150" height="150"> </br>
-다양한 숫자를 학습해서 생성해내지 못하고, 같은 숫자만 반복해서 생성하게 됩니다.
+학습이 순조롭게 진행이 되더라도 이러한 Mode collapsing이 발생하면 우리가 기대했던 다양한 숫자가 아닌 <br/>
+처음 Randomnoise가 집중된 한 곳의 데이터만을 Generator가 학습해서 만들어냅니다. <br/>
 
-<img src="https://github.com/hwk06023/GAN/blob/master/Images/Mode%20Collapsing.png" alt="Mode Collapsing" width="300" height="300"> <br/>
+### 해결 방안
+
+모델이 분포된 전체 데이터들을 골고루 학습하게 도와줍니다. <br/>
+Generator와 Discriminator가 같이 서로 잘 학습해 나갈 수 있도록 도와줍니다. <br/><br/>
 
 
-모델이 분포된 전체 데이터들을 골고루 학습하게 도와줍니다.
+## 마무리
+현재에는 GAN에 대한 많은 아이디어와 개선으로 다양한 모델들이 존재합니다. <br/>
+이번에는 그러한 모델들의 기초를 제대로 공부하는 시간이 되었어서 뿌듯합니다. &#128522; <br/>
